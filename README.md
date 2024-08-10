@@ -4,13 +4,13 @@ This repository includes my own-made implementations of important concepts, algo
 
 ## Contents
 
-- **Classic Vision**
+- **[Classic Vision](/vision/)**
   - Placeholder
 
-- **Machine Learning**
+- **[Machine Learning](/machine-learning/)**
   - Placeholder
 
-- **Deep Learning**
+- **[Deep Learning](/deep-learning/)**
   - **VGG16 & VGG19** 
 
 ## Installation

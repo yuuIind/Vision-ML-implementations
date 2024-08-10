@@ -11,7 +11,8 @@ This repository includes my own-made implementations of important concepts, algo
   - Placeholder
 
 - **[Deep Learning](/deep-learning/)**
-  - **VGG16 & VGG19** 
+  - **VGG16 & VGG19**
+  - **GoogleNet** 
 
 ## Installation
 1. Clone the repository:

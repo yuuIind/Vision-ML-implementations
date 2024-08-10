@@ -5,15 +5,13 @@ This repository includes my own-made implementations of important concepts, algo
 ## Contents
 
 - **Classic Vision**
-  - *SIFT* (Scale-Invariant Feature Transform)
-  - [Classic vision stuff here]
+  - Placeholder
 
 - **Machine Learning**
-  - [Machine learning stuff here]
-  - 
+  - Placeholder
+
 - **Deep Learning**
-  - *VGG* (Visual Geometry Group Networks)
-  - [Neural Nets and other stuff here]
+  - **VGG16 & VGG19** 
 
 ## Installation
 1. Clone the repository:

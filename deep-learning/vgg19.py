@@ -1,6 +1,6 @@
 """ Vgg19
 
-A PyTorch impl of Vgg19
+A PyTorch implementation of Vgg19
 
 Paper: Very Deep Convolutional Networks for Large-Scale Image Recognition
 - https://arxiv.org/abs/1409.1556
@@ -86,5 +86,15 @@ class VGG19(nn.Module):
         x = self.feature_extractor(x)
         x = torch.flatten(x, 1, -1)
         x = self.classifier(x)
+        return x
 
+
+if __name__ == "__main__":
+    model = VGG19(1000)
+    x = torch.randn(1, 3, 224, 224)
+    out = model(x)
+    print(f'Input shape: {x.shape}')
+    print(f'Model output shape: {out.shape}')
+    print('VGG16')
+    print(model)
 

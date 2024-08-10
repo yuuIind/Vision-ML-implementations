@@ -10,6 +10,7 @@ This repository includes my own-made implementations of important concepts, algo
 
 - **Machine Learning**
   - [Machine learning stuff here]
+  - 
 - **Deep Learning**
   - *VGG* (Visual Geometry Group Networks)
   - [Neural Nets and other stuff here]
@@ -30,9 +31,9 @@ pip install -r requirements.txt
 ## Usage
 
 Each implementation is organized in its own file under related directory. To use an implementation, navigate to the corresponding directory and follow the instructions provided in the respective README files. For example:
-- **SIFT**: Implementation details and usage instructions are located in the computervision/ directory.
-- **BoostingTree**: Implementation details and usage instructions are located in the machinelearning/ directory.
-- **VGG**: Implementation details and usage instructions are located in the deeplearning/ directory.
+- **SIFT**: Implementation details and usage instructions are located in the [vision/](vision) directory.
+- **BoostingTree**: Implementation details and usage instructions are located in the [machine-learning/](machine-learning) directory.
+- **VGG**: Implementation details and usage instructions are located in the [deep-learning/](deep-learning) directory.
 
 ## License
 

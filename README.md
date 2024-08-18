@@ -14,6 +14,9 @@ This repository includes my own-made implementations of important concepts, algo
   - **VGG16 & VGG19**
   - **GoogleNet** 
 
+- **[DSA](/dsa/)**
+  - Placeholder
+
 ## Installation
 1. Clone the repository:
 ```bash
@@ -33,6 +36,7 @@ Each implementation is organized in its own file under related directory. To use
 - **SIFT**: Implementation details and usage instructions are located in the [vision/](vision) directory.
 - **BoostingTree**: Implementation details and usage instructions are located in the [machine-learning/](machine-learning) directory.
 - **VGG**: Implementation details and usage instructions are located in the [deep-learning/](deep-learning) directory.
+- **Mergesort**: Implementation details and usage instructions are located in the [dsa/](/dsa/) directory.
 
 ## License
 

@@ -11,3 +11,4 @@ Here is a summary of the models and implementations available in this repository
 |------------------|-----------------------------------------------------------------------------|----------------------|---------------------------------------|
 | VGG19 & VGG16 | [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/abs/1409.1556) | [vgg19.py](/deep-learning/vgg19.py), [vgg16.py](/deep-learning/vgg16.py) |  |
 | GoogleNet | [Going Deeper with Convolutions](https://arxiv.org/abs/1409.4842) | [googlenet.py](/deep-learning/googlenet.py) |  |
+| Inceptionv3 | [Rethinking the Inception Architecture for Computer Vision](https://arxiv.org/abs/1409.4842) | [inception_v3.py](/deep-learning/inception_v3.py) |  |

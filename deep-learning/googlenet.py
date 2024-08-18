@@ -181,12 +181,22 @@ class GoogleNet(nn.Module):
         return x
     
 if __name__ == "__main__":
+    # Test the model with random input
     model = GoogleNet(1000, aux_clf=True)
     x = torch.randn(1, 3, 224, 224)
     out, aux1, aux2 = model(x)
+
+    # Print model output
     print(f'Input shape: {x.shape}')
     print(f'Model output shape: {out.shape}')
     print(f'Auxillary Classifier 1 output shape: {aux1.shape}')
-    print(f'Auxillary Classifier 2 output shape: {aux2.shape}')
+    print(f'Auxillary Classifier 2 output shape: {aux2.shape}\n')
+
+    # Print the number of parameters in the model
+    total_params = sum(p.numel() for p in model.parameters())
+    total_trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    print(f"Total params: {total_params}, Total trainable params: {total_trainable_params}\n")
+
+    # Print model summary
     print('GoogleNet with Auxillary Classifier')
     print(model)

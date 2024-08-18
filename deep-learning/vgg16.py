@@ -84,10 +84,20 @@ class VGG16(nn.Module):
 
 
 if __name__ == "__main__":
+    # Test the model with random input
     model = VGG16(1000)
     x = torch.randn(1, 3, 224, 224)
     out = model(x)
+
+    # Print model output
     print(f'Input shape: {x.shape}')
-    print(f'Model output shape: {out.shape}')
+    print(f'Model output shape: {out.shape}\n')
+    
+    # Print the number of parameters in the model
+    total_params = sum(p.numel() for p in model.parameters())
+    total_trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    print(f"Total params: {total_params}, Total trainable params: {total_trainable_params}\n")
+
+    # Print model summary
     print('VGG16')
     print(model)

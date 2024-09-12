@@ -1,3 +1,8 @@
+# Unnecessary files
+test.py
+inception_v3.py
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

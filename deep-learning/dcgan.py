@@ -38,7 +38,7 @@ class Generator(nn.Module):
             return nn.Sequential(
                 nn.ConvTranspose2d(
                     in_channels=c_in, out_channels=c_out,
-                    kernel_size=k, stride=s, padding=p
+                    kernel_size=k, stride=s, padding=p, bias=False
                     ),
                 nn.Tanh(),
             )
@@ -46,7 +46,7 @@ class Generator(nn.Module):
             return nn.Sequential(
                 nn.ConvTranspose2d(
                     in_channels=c_in, out_channels=c_out,
-                    kernel_size=k, stride=s, padding=p
+                    kernel_size=k, stride=s, padding=p, bias=False
                     ),
                 nn.BatchNorm2d(c_out),
                 nn.ReLU(),
@@ -92,7 +92,7 @@ class Discriminator(nn.Module):
             return nn.Sequential(
                 nn.Conv2d(
                     in_channels=c_in, out_channels=c_out,
-                    kernel_size=k, stride=s, padding=p
+                    kernel_size=k, stride=s, padding=p, bias=False
                     ),
                 nn.Sigmoid(),
             )
@@ -100,7 +100,7 @@ class Discriminator(nn.Module):
             return nn.Sequential(
                 nn.Conv2d(
                     in_channels=c_in, out_channels=c_out,
-                    kernel_size=k, stride=s, padding=p
+                    kernel_size=k, stride=s, padding=p, bias=False
                     ),
                 nn.BatchNorm2d(c_out),
                 nn.LeakyReLU(negative_slope=slope),
@@ -116,6 +116,7 @@ class Discriminator(nn.Module):
     
 class DCGAN():
     def __init__(self, dim_z=100, dim_c=3, dim_g=128, dim_d=64, slope=0.2, init_def=True):
+        self.dim_z = dim_z
         self.gen = Generator(dim_z=dim_z, dim_c=dim_c, dim_hid=dim_g)
         self.disc = Discriminator(c_in=dim_c, c_out=1, dim_hid=dim_d, slope=slope)
 
@@ -125,11 +126,66 @@ class DCGAN():
 
 
     def weights_init(m: nn.Module):
-        if isinstance(m, (nn.Conv2d, nn.ConvTranspose2d, nn.BatchNorm2d)):
+        if isinstance(m, (nn.Conv2d, nn.ConvTranspose2d)):
+            torch.nn.init.normal_(m.weight, 0.0, 0.02)
+        elif isinstance(m, nn.BatchNorm2d):
             torch.nn.init.normal_(m.weight, 0.0, 0.02)
             torch.nn.init.constant_(m.bias, 0)
 
     
+    def train(self, data_loader, optimizerG, optimizerD, criterion, 
+              num_epochs, device='cpu', display=True):
+        self.gen.to(device=device)
+        self.disc.to(device=device)
+        print("Starting Training Loop...")
+        # For each epoch
+        for epoch in range(num_epochs):
+            # For each batch in the dataloader
+            for data in data_loader:
+                # 1- Update Discriminator network: maximize log(D(x)) + log(1 - D(G(z)))
+                # Prepare the data
+                real = data.to(device)
+                N = real.shape[0]
+                label_real = torch.ones((N,), dtype=torch.float, device=device)
+
+                # Forward pass real batch through Discriminator
+                output_real = self.disc(real).view(-1)
+
+                # Calculate loss on all-real batch
+                lossD_real = criterion(output_real, label_real)
+
+                # Generate batch of latent vectors
+                noise = torch.randn(N, self.dim_z, 1, 1, device=device)
+                # Forward pass latent vectors through Generator
+                fake = self.gen(noise)
+                label_fake = torch.zeros_like(label_real)
+                
+                # Classify all fake batch with Discriminator
+                output_fake = self.disc(fake.detach()).view(-1)
+                # Calculate loss on all-fake batch
+                lossD_fake = criterion(output_fake, label_fake)
+
+                # Calculate overall loss for Discriminator
+                lossD = (lossD_real + lossD_fake) / 2
+
+                # Zero grad, backward, step
+                optimizerD.zero_grad()
+                lossD.backward()
+                optimizerD.step()
+
+                # 2- Update Generator network: min log(1 - D(G(z))) 
+                out = self.disc(fake).view(-1)
+                labelG = torch.ones_like(label_real)
+                lossG = criterion(out, labelG)
+
+                # Zero grad, backward, step
+                optimizerG.zero_grad()
+                lossG.backward()
+                optimizerG.step()
+
+            if display:
+                print(f"Epoch: {epoch}")
+
     def _test(self):
         z = torch.randn(5, 100, 1, 1)
 

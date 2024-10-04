@@ -17,7 +17,7 @@ This repository includes my own-made implementations of important concepts, algo
 ## Installation
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/vision-ml-implementations.git
+git clone https://github.com/yuuIind/vision-ml-implementations.git
 ```
 2. Navigate to the repository directory:
 ```bash
